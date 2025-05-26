@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Projects</h1>
+  <ul>
+    {% for project in projects %}
+      <li>
+        <strong>{{ project.name }}</strong> —
+        {{ project.description }} ({{ project.deadline }})
+      </li>
+    {% empty %}
+      <li>No projects found.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
