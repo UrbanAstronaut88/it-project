@@ -21,11 +21,11 @@ class WorkerAdmin(UserAdmin):
         "username",
         "first_name",
         "last_name",
-        "email",
+        "is_staff",
         "position"
     )
-    list_filter = ("position",)
-    search_fields = ("username", "first_name", "last_name", "email")
+    list_filter = ("position", "is_staff", "is_superuser")
+    search_fields = ("username", "first_name", "last_name", "position__name")
 
 
 @admin.register(TaskType)
@@ -36,7 +36,9 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("name", "deadline", "priority", "is_completed", "task_type")
+    list_display = ("name", "deadline", "is_completed", "priority")
     list_filter = ("is_completed", "priority", "task_type", "deadline")
     search_fields = ("name", "description")
     filter_horizontal = ("assignees",)
+    autocomplete_fields = ("task_type",)
+    date_hierarchy = "deadline"
