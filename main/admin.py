@@ -42,3 +42,9 @@ class TaskAdmin(admin.ModelAdmin):
     filter_horizontal = ("assignees",)
     autocomplete_fields = ("task_type",)
     date_hierarchy = "deadline"
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ("name", "deadline",)
+    search_fields = ("name",)
