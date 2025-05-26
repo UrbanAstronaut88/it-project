@@ -45,3 +45,12 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    deadline = models.DateField()
+
+    def __str__(self):
+        return self.name
