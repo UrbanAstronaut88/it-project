@@ -8,8 +8,10 @@
     <ul class="list-group">
       {% for task in tasks %}
         <li class="list-group-item">
-          <strong>{{ task.name }}</strong> — {{ task.status }}
-          <br>
+          <a href="{% url 'main:task-detail' task.pk %}">
+            <strong>{{ task.name }}</strong> — {{ task.status }}
+          </a>  
+            <br>
           {{ task.description|truncatewords:15 }}
           <div class="text-muted">Project: {{ task.project.name }}</div>
         </li>
