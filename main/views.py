@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 from main.models import Project, Task
 
 
@@ -25,3 +25,9 @@ class TaskListView(ListView):
     model = Task
     template_name = "main/task_list.html"
     context_object_name = "tasks"
+
+
+class TaskDetailView(DetailView):
+    model = Task
+    template_name = "main/task_detail.html"
+    context_object_name = "task"
