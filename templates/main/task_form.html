@@ -1,15 +1,88 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
-{% block title %}Update task{% endblock %}
+{% block title %}Update Task{% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
-    <h2>Update task</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-success">Save</button>
-      <a href="{% url 'main:task-detail' object.pk %}" class="btn btn-secondary">Cancel</a>
-    </form>
-  </div>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Update Task</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                {{ form.name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.deadline|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                {{ form.priority|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.task_type|as_crispy_field }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.is_completed|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        {{ form.description|as_crispy_field }}
+                        
+                        {% if form.tags %}
+                        <div class="mb-3">
+                            <label class="form-label">Tags</label>
+                            <div class="tag-selector">
+                                {{ form.tags }}
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        {{ form.assignees|as_crispy_field }}
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'main:task-detail' object.pk %}" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* временное решение, не забыть перенести стили в отдельный модуль */
+    .card {
+        border-radius: 10px;
+    }
+    .card-header {
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .tag-selector {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .tag-selector .form-check {
+        margin-right: 10px;
+    }
+    select[multiple] {
+        height: auto;
+    }
+</style>
 {% endblock %}
