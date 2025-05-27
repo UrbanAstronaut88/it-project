@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Employee list{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Employees</h2>
+    <ul class="list-group">
+      {% for worker in workers %}
+        <li class="list-group-item">
+          {{ worker.first_name }} {{ worker.last_name }} — {{ worker.position }}
+        </li>
+      {% empty %}
+        <li class="list-group-item">There are no employees yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
