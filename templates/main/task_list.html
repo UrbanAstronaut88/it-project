@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}List of tasks{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Tasks</h2>
+    <ul class="list-group">
+      {% for task in tasks %}
+        <li class="list-group-item">
+          <strong>{{ task.name }}</strong> — {{ task.status }}
+          <br>
+          {{ task.description|truncatewords:15 }}
+          <div class="text-muted">Project: {{ task.project.name }}</div>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No tasks yet.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
