@@ -1,22 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}{{ task.name }}{% endblock %}
+{% block title %}
+  Task: {{ task.name }}
+{% endblock %}
 
 {% block content %}
   <div class="container mt-4">
-    <h2>{{ task.name }}</h2>
-    <p><strong>Description:</strong> {{ task.description }}</p>
-    <p><strong>Status:</strong> {{ task.status }}</p>
-    <p><strong>Project:</strong> {{ task.project.name }}</p>
-    <p><strong>Project authors:</strong>
-      {% for worker in task.assignees.all %}
-        {{ worker.get_full_name }}{% if not forloop.last %}, {% endif %}
-      {% empty %}
-        no one assigned
-      {% endfor %}
-    </p>
-    <a href="{% url 'main:task-list' %}" class="btn btn-secondary mt-3">Back to tasks</a>
-    <a href="{% url 'main:task-update' task.pk %}" class="btn btn-primary mt-3">Update</a>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title">{{ task.name }}</h3>
+        <h6 class="card-subtitle mb-3 text-muted">{{ task.status }}</h6>
+
+        <p><strong>Description:</strong> {{ task.description }}</p>
+        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
+        <p><strong>Priority:</strong> <span class="badge bg-secondary">{{ task.priority }}</span></p>
+        <p><strong>Project:</strong> {{ task.project.name }}</p>
+        <p><strong>Task Type:</strong> {{ task.task_type.name }}</p>
+        <p><strong>Assignees:</strong>
+          {% if task.assignees.all %}
+            <ul>
+              {% for user in task.assignees.all %}
+                <li>{{ user.get_full_name|default:user.username }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <em>No assignees</em>
+          {% endif %}
+        </p>
+
+        <div class="d-flex gap-2 mt-4">
+          <a href="{% url 'main:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+          <a href="{% url 'main:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+          <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Back to List</a>
+        </div>
+      </div>
+    </div>
   </div>
 {% endblock %}
-
