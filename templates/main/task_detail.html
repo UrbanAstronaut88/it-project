@@ -16,5 +16,7 @@
       {% endfor %}
     </p>
     <a href="{% url 'main:task-list' %}" class="btn btn-secondary mt-3">Back to tasks</a>
+    <a href="{% url 'main:task-update' task.pk %}" class="btn btn-primary mt-3">Update</a>
   </div>
 {% endblock %}
+
