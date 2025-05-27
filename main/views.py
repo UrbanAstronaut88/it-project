@@ -36,6 +36,14 @@ class TaskDetailView(DetailView):
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = ["name", "description", "status", "project", "assignees"]
+    fields = [
+        "name",
+        "description",
+        "deadline",
+        "is_completed",
+        "priority",
+        "task_type",
+        "assignees",
+    ]
     template_name = "main/task_form.html"
     success_url = reverse_lazy("main:task-list")
