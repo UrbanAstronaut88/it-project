@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ task.name }}{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>{{ task.name }}</h2>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Status:</strong> {{ task.status }}</p>
+    <p><strong>Project:</strong> {{ task.project.name }}</p>
+    <p><strong>Project authors:</strong>
+      {% for worker in task.assignees.all %}
+        {{ worker.get_full_name }}{% if not forloop.last %}, {% endif %}
+      {% empty %}
+        no one assigned
+      {% endfor %}
+    </p>
+    <a href="{% url 'main:task-list' %}" class="btn btn-secondary mt-3">Back to tasks</a>
+  </div>
+{% endblock %}
