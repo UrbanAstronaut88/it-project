@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
 
@@ -12,3 +13,11 @@ class ProjectListView(ListView):
 
 class HomeView(TemplateView):
     template_name = "main/home.html"
+
+
+User = get_user_model()
+
+class WorkerListView(ListView):
+    model = User
+    template_name = "main/worker_list.html"
+    context_object_name = "workers"
