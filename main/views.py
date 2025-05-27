@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView, UpdateView
+from django.views.generic import ListView, TemplateView, DetailView, UpdateView, DeleteView
 from main.models import Project, Task
 
 
@@ -46,4 +46,10 @@ class TaskUpdateView(UpdateView):
         "assignees",
     ]
     template_name = "main/task_form.html"
+    success_url = reverse_lazy("main:task-list")
+
+
+class TaskDeleteView(DeleteView):
+    model = Task
+    template_name = "main/task_confirm_delete.html"
     success_url = reverse_lazy("main:task-list")
