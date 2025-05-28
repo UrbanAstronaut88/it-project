@@ -10,6 +10,12 @@ class ProjectListView(ListView):
     context_object_name = "projects"
 
 
+class ProjectDetailView(DetailView):
+    model = Project
+    template_name = "main/project_detail.html"
+    context_object_name = "project"
+
+
 class HomeView(TemplateView):
     template_name = "main/home.html"
 
