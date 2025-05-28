@@ -66,6 +66,19 @@ class TaskListView(ListView):
     template_name = "main/task_list.html"
     context_object_name = "tasks"
 
+    def get_queryset(self):
+        queryset = Task.objects.select_related("project")
+        project_id = self.request.GET.get("project")
+        if project_id:
+            queryset = queryset.filter(project_id=project_id)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["projects"] = Project.objects.all()
+        context["selected_project_id"] = self.request.GET.get("project")
+        return context
+
 
 class TaskDetailView(DetailView):
     model = Task
