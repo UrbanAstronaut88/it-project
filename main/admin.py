@@ -58,8 +58,3 @@ class TaskAdmin(admin.ModelAdmin):
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("name", "deadline",)
     search_fields = ("name",)
-
-
-admin.site.register(Project)
-admin.site.register(TaskType)
-admin.site.register(Worker)
