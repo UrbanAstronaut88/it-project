@@ -83,7 +83,6 @@ class TaskCreateView(CreateView):
         "task_type",
         "assignees",
         "project",
-        "is_completed"
     ]
     template_name = "main/task_form.html"
     success_url = reverse_lazy("main:task-list")
