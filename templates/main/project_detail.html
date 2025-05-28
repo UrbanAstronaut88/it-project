@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 {% block title %}
   Project Detail
 {% endblock %}
@@ -9,19 +11,22 @@
   <p><strong>Description:</strong> {{ project.description }}</p>
   <p><strong>Deadline:</strong> {{ project.deadline }}</p>
 
-  <a href="{% url 'main:project-update' project.pk %}" class="btn btn-warning">Update</a>
-  <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-danger">Delete</a>
-  <a href="{% url 'main:project-list' %}" class="btn btn-secondary">Back to list</a>
+  <div class="mb-3">
+    <a href="{% url 'main:project-update' project.pk %}" class="btn btn-warning">Update</a>
+    <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-danger">Delete</a>
+    <a href="{% url 'main:project-list' %}" class="btn btn-secondary">Back to list</a>
+  </div>
 
-  <h4 class="mt-4">Tasks in this project</h4>
-  <ul class="list-group mb-4">
-    {% for task in tasks %}
-      <li class="list-group-item">
-        <a href="{% url 'main:task-detail' task.pk %}">
-          <strong>{{ task.name }}</strong>
-        </a><br>
-        {{ task.description|truncatewords:15 }}
-        <div class="text-muted">Deadline: {{ task.deadline }}</div>
+  <h4>Tasks in this project</h4>
+  <ul class="list-group mt-3">
+    {% for task in project.task_set.all %}
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+          <a href="{% url 'main:task-detail' task.pk %}"><strong>{{ task.name }}</strong></a>
+          <p class="mb-1">{{ task.description|truncatewords:15 }}</p>
+          <small class="text-muted">Priority: {{ task.priority }} | Deadline: {{ task.deadline }}</small>
+        </div>
+        <span class="badge bg-{{ task.priority|lower }}">{{ task.priority }}</span>
       </li>
     {% empty %}
       <li class="list-group-item">No tasks for this project.</li>
