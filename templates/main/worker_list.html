@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Employee list{% endblock %}
+{% block title %}
+  Employee list
+{% endblock %}
 
 {% block content %}
   <div class="container mt-4">
     <h2 class="mb-4">Employees</h2>
+
     <ul class="list-group">
       {% for worker in workers %}
         <li class="list-group-item">
-          {{ worker.first_name }} {{ worker.last_name }} — {{ worker.position }}
+          <a href="{% url 'main:worker-detail' worker.pk %}" class="text-decoration-none">
+            <strong>{{ worker.first_name }} {{ worker.last_name }}</strong>
+          </a>
+          <span class="text-muted"> — {{ worker.position }}</span>
         </li>
       {% empty %}
         <li class="list-group-item">There are no employees yet.</li>
