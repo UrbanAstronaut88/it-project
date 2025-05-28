@@ -66,6 +66,11 @@ class WorkerDetailView(DetailView):
     template_name = "main/worker_detail.html"
     context_object_name = "worker"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tasks"] = Task.objects.filter(assignees=self.object)
+        return context
+
 
 class WorkerCreateView(CreateView):
     model = User
@@ -82,7 +87,7 @@ class WorkerCreateView(CreateView):
 
 class WorkerUpdateView(UpdateView):
     model = User
-    fields = ("username", "first_name", "last_name", "email", "position")
+    fields = ("username", "first_name", "last_name", "email", "position", "password")
     template_name = "main/worker_form.html"
     success_url = reverse_lazy("main:worker-list")
 
