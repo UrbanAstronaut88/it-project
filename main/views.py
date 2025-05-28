@@ -61,6 +61,12 @@ class WorkerListView(ListView):
     context_object_name = "workers"
 
 
+class WorkerDetailView(DetailView):
+    model = User
+    template_name = "main/worker_detail.html"
+    context_object_name = "worker"
+
+
 class TaskListView(ListView):
     model = Task
     template_name = "main/task_list.html"
