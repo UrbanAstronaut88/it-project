@@ -67,6 +67,19 @@ class WorkerDetailView(DetailView):
     context_object_name = "worker"
 
 
+class WorkerCreateView(CreateView):
+    model = User
+    fields = ("username", "first_name", "last_name", "email", "position", "password")
+    template_name = "main/worker_form.html"
+    success_url = reverse_lazy("main:worker-list")
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data["password"])
+        user.save()
+        return super().form_valid(form)
+
+
 class TaskListView(ListView):
     model = Task
     template_name = "main/task_list.html"
