@@ -8,7 +8,7 @@
 
 {% block content %}
   <div class="container mt-4">
-    <h2 class="mb-4">Create new task</h2>
+    <h4 class="mb-4">Create new task</h4>
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
