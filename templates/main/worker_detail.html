@@ -5,14 +5,29 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <h2>{{ worker.username }}</h2>
-  <p><strong>First name:</strong> {{ worker.first_name }}</p>
-  <p><strong>Last name:</strong> {{ worker.last_name }}</p>
-  <p><strong>Email:</strong> {{ worker.email }}</p>
-
-  <div class="mb-3">
-    <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">← Back to list</a>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <h2 class="mb-0">{{ worker.username }}</h2>
+        </div>
+        <div class="card-body">
+          <div class="mb-3">
+            <strong>First name:</strong> {{ worker.first_name|default:"Not provided" }}
+          </div>
+          <div class="mb-3">
+            <strong>Last name:</strong> {{ worker.last_name|default:"Not provided" }}
+          </div>
+          <div class="mb-3">
+            <strong>Email:</strong> {{ worker.email|default:"Not provided" }}
+          </div>
+        </div>
+        <div class="card-footer text-end">
+          <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">← Back to list</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}
