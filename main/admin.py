@@ -36,15 +36,30 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("name", "deadline", "is_completed", "priority")
-    list_filter = ("is_completed", "priority", "task_type", "deadline")
+    list_display = ("name", "project", "deadline", "is_completed", "priority")
+    list_filter = ("is_completed", "priority", "project", "deadline")
     search_fields = ("name", "description")
     filter_horizontal = ("assignees",)
     autocomplete_fields = ("task_type",)
     date_hierarchy = "deadline"
+    fieldsets = (
+        (None, {"fields": ("name",
+                           "description",
+                           "deadline",
+                           "priority",
+                           "project",
+                           "assignees",
+                           )
+                }),
+    )
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ("name", "deadline",)
     search_fields = ("name",)
+
+
+admin.site.register(Project)
+admin.site.register(TaskType)
+admin.site.register(Worker)
