@@ -1,24 +1,41 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Employee list
+  Worker list
 {% endblock %}
 
 {% block content %}
   <div class="container mt-4">
-    <h2 class="mb-4">Employees</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">Employees</h2>
+      <a href="{% url 'main:worker-create' %}" class="btn btn-sm btn-outline-primary">
+        + Add new worker
+      </a>
+    </div>
 
-    <ul class="list-group">
-      {% for worker in workers %}
-        <li class="list-group-item">
-          <a href="{% url 'main:worker-detail' worker.pk %}" class="text-decoration-none">
-            <strong>{{ worker.first_name }} {{ worker.last_name }}</strong>
-          </a>
-          <span class="text-muted"> — {{ worker.position }}</span>
-        </li>
-      {% empty %}
-        <li class="list-group-item">There are no employees yet.</li>
-      {% endfor %}
-    </ul>
+    {% if workers %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for worker in workers %}
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'main:worker-detail' worker.pk %}" class="text-decoration-none">
+                    {{ worker.first_name }} {{ worker.last_name }}
+                  </a>
+                </h5>
+                <p class="card-text text-muted mb-1">{{ worker.position }}</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <a href="{% url 'main:worker-update' worker.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
+                <a href="{% url 'main:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">There are no employees yet.</div>
+    {% endif %}
   </div>
 {% endblock %}
