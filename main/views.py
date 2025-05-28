@@ -82,7 +82,7 @@ class WorkerCreateView(CreateView):
 
 class WorkerUpdateView(UpdateView):
     model = User
-    fields = ("username", "first_name", "last_name", "email", "position", "password")
+    fields = ("username", "first_name", "last_name", "email", "position")
     template_name = "main/worker_form.html"
     success_url = reverse_lazy("main:worker-list")
 

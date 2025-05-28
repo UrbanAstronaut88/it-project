@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {% if form.instance.pk %}
+    Update Worker
+  {% else %}
+    Create Worker
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">
+    {% if form.instance.pk %}
+      Update Worker
+    {% else %}
+      Create New Worker
+    {% endif %}
+  </h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-outline-success">
+      {% if form.instance.pk %}
+        Update
+      {% else %}
+        Create
+      {% endif %}
+    </button>
+    <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">Back</a>
+  </form>
+</div>
+{% endblock %}
