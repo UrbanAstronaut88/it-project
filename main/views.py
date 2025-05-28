@@ -80,6 +80,19 @@ class WorkerCreateView(CreateView):
         return super().form_valid(form)
 
 
+class WorkerUpdateView(UpdateView):
+    model = User
+    fields = ("username", "first_name", "last_name", "email", "position", "password")
+    template_name = "main/worker_form.html"
+    success_url = reverse_lazy("main:worker-list")
+
+
+class WorkerDeleteView(DeleteView):
+    model = User
+    template_name = "main/worker_confirm_delete.html"
+    success_url = reverse_lazy("main:worker-list")
+
+
 class TaskListView(ListView):
     model = Task
     template_name = "main/task_list.html"
