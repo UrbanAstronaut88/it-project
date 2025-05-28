@@ -12,9 +12,9 @@
   <p><strong>Deadline:</strong> {{ project.deadline }}</p>
 
   <div class="mb-3">
-    <a href="{% url 'main:project-update' project.pk %}" class="btn btn-warning">Update</a>
-    <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-danger">Delete</a>
-    <a href="{% url 'main:project-list' %}" class="btn btn-secondary">Back to list</a>
+    <a href="{% url 'main:project-update' project.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+    <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+    <a href="{% url 'main:project-list' %}" class="btn btn-sm btn-outline-secondary">Back to list</a>
   </div>
 
   <h4>Tasks in this project</h4>
