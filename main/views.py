@@ -1,6 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from django.views.generic import ListView, TemplateView, DetailView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    TemplateView,
+    DetailView,
+    UpdateView,
+    DeleteView,
+    CreateView
+)
+from main.forms import ProjectForm
 from main.models import Project, Task
 
 
@@ -14,6 +22,26 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = "main/project_detail.html"
     context_object_name = "project"
+
+
+class ProjectCreateView(CreateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = "main/project_form.html"
+    success_url = reverse_lazy("main:project-list")
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    form_class = ProjectForm
+    template_name = "main/project_form.html"
+    success_url = reverse_lazy("main:project-list")
+
+
+class ProjectDeleteView(DeleteView):
+    model = Project
+    template_name = "main/project_confirm_delete.html"
+    success_url = reverse_lazy("main:project-list")
 
 
 class HomeView(TemplateView):
