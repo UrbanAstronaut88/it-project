@@ -8,7 +8,7 @@
   <h2>Create New Task</h2>
   <form method="post">
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form|crispy }} 
     <button type="submit" class="btn btn-sm btn-outline-primary">Create</button>
     <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
   </form>
