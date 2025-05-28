@@ -12,8 +12,10 @@
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <button type="submit" class="btn btn-sm btn-outline-primary">Create</button>
-      <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+      <div class="d-flex gap-2 mt-3">
+        <button type="submit" class="btn btn-sm btn-outline-primary">Create</button>
+        <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+      </div>
     </form>
   </div>
 {% endblock %}

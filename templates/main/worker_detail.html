@@ -6,32 +6,39 @@
 
 {% block content %}
 <div class="container mt-4">
-  <h2>{{ worker.get_full_name|default:worker.username }}</h2>
-  <p><strong>Email:</strong> {{ worker.email }}</p>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">{{ worker.first_name }} {{ worker.last_name }}</h4>
+      <h6 class="card-subtitle mb-2 text-muted">{{ worker.position }}</h6>
+      <p class="card-text"><strong>Username:</strong> {{ worker.username }}</p>
+      <p class="card-text"><strong>Email:</strong> {{ worker.email }}</p>
+    </div>
 
-  <div class="mb-3">
-    <a href="{% url 'main:worker-update' worker.pk %}" class="btn btn-outline-warning">Update</a>
-    <a href="{% url 'main:worker-delete' worker.pk %}" class="btn btn-outline-danger">Delete</a>
-    <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">Back to list</a>
+    <div class="card-footer d-flex justify-content-between">
+      <a href="{% url 'main:worker-update' worker.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
+      <a href="{% url 'main:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+      <a href="{% url 'main:worker-list' %}" class="btn btn-sm btn-outline-secondary">Back</a>
+    </div>
   </div>
 
-  <h4>Assigned Tasks</h4>
-  {% if tasks %}
-    <ul class="list-group mt-3">
-      {% for task in tasks %}
-        <li class="list-group-item">
-          <a href="{% url 'main:task-detail' task.pk %}">
-            <strong>{{ task.name }}</strong>
-          </a>
-          <p class="mb-1">{{ task.description|truncatewords:15 }}</p>
-          <small class="text-muted">Project: {{ task.project.name }} | Priority: {{ task.priority }}</small>
+  <div class="mt-4">
+    <h5>Assigned Tasks</h5>
+    <ul class="list-group mt-2">
+      {% for task in worker.tasks.all %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <a href="{% url 'main:task-detail' task.pk %}" class="text-decoration-none">
+              <strong>{{ task.name }}</strong>
+            </a>
+            <p class="mb-1">{{ task.description|truncatewords:15 }}</p>
+            <small class="text-muted">Project: {{ task.project.name }} | Deadline: {{ task.deadline }}</small>
+          </div>
+          <span class="badge bg-{{ task.priority|lower }}">{{ task.priority }}</span>
         </li>
+      {% empty %}
+        <li class="list-group-item">No tasks assigned to this worker.</li>
       {% endfor %}
     </ul>
-  {% else %}
-    <div class="alert alert-info mt-3" role="alert">
-      This worker has no assigned tasks.
-    </div>
-  {% endif %}
+  </div>
 </div>
 {% endblock %}
