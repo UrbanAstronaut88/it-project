@@ -23,6 +23,11 @@ class ProjectDetailView(DetailView):
     template_name = "main/project_detail.html"
     context_object_name = "project"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tasks"] = Task.objects.filter(project=self.get_object())
+        return context
+
 
 class ProjectCreateView(CreateView):
     model = Project
