@@ -36,7 +36,7 @@ class TaskTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("name", "project", "deadline", "is_completed", "priority")
+    list_display = ("name", "project", "deadline", "is_completed", "priority", "task_type",)
     list_filter = ("is_completed", "priority", "project", "deadline")
     search_fields = ("name", "description")
     filter_horizontal = ("assignees",)
@@ -49,6 +49,7 @@ class TaskAdmin(admin.ModelAdmin):
                            "priority",
                            "project",
                            "assignees",
+                           "task_type",
                            )
                 }),
     )

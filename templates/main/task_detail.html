@@ -14,8 +14,9 @@
         <p><strong>Description:</strong> {{ task.description }}</p>
         <p><strong>Deadline:</strong> {{ task.deadline }}</p>
         <p><strong>Priority:</strong> <span class="badge bg-secondary">{{ task.priority }}</span></p>
-        <p><strong>Project:</strong> {{ task.project.name }}</p>
         <p><strong>Task Type:</strong> {{ task.task_type.name }}</p>
+        <p><strong>Project:</strong> {{ task.project.name }}</p>
+        <p><strong>Completed:</strong> {{ task.is_completed|yesno:"Yes,No" }}</p>
         <p><strong>Assignees:</strong>
           {% if task.assignees.all %}
             <ul>
