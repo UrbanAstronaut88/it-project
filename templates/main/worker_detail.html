@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Worker Detail
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ worker.username }}</h2>
+  <p><strong>First name:</strong> {{ worker.first_name }}</p>
+  <p><strong>Last name:</strong> {{ worker.last_name }}</p>
+  <p><strong>Email:</strong> {{ worker.email }}</p>
+
+  <div class="mb-3">
+    <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">← Back to list</a>
+  </div>
+</div>
+{% endblock %}
