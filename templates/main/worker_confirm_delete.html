@@ -5,14 +5,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <h2>Delete Worker</h2>
-  <p>Are you sure you want to delete "{{ object.username }}"?</p>
-
-  <form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-outline-danger">Yes, delete</button>
-    <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">Cancel</a>
-  </form>
-</div>
+  <div class="container mt-4">
+    <h2 class="mb-3">Delete Worker</h2>
+    <div class="alert alert-warning">
+      Are you sure you want to delete the worker <strong>{{ object.get_full_name }}</strong>?
+    </div>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger">Yes, delete</button>
+      <a href="{% url 'main:worker-list' %}" class="btn btn-outline-secondary">Cancel</a>
+    </form>
+  </div>
 {% endblock %}
