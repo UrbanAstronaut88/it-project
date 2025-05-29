@@ -158,7 +158,7 @@ class TaskDeleteView(DeleteView):
 def task_complete(request, pk):
     task = get_object_or_404(Task, pk=pk)
 
-    if request.user == in task.assignees.all():
+    if request.user in task.assignees.all():
         if not task.is_completed:
             task.is_completed = True
             task.save()
