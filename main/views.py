@@ -9,7 +9,7 @@ from django.views.generic import (
     CreateView
 )
 from main.forms import ProjectForm
-from main.models import Project, Task
+from main.models import Project, Task, TaskType
 
 
 class ProjectListView(ListView):
@@ -157,3 +157,29 @@ class TaskDeleteView(DeleteView):
     model = Task
     template_name = "main/task_confirm_delete.html"
     success_url = reverse_lazy("main:task-list")
+
+
+class TaskTypeListView(ListView):
+    model = TaskType
+    template_name = "main/tasktype_list.html"
+    context_object_name = "task_types"
+
+
+class TaskTypeCreateView(CreateView):
+    model = TaskType
+    fields = ["name"]
+    template_name = "main/tasktype_form.html"
+    success_url = reverse_lazy("main:tasktype-list")
+
+
+class TaskTypeUpdateView(UpdateView):
+    model = TaskType
+    fields = ["name"]
+    template_name = "main/tasktype_form.html"
+    success_url = reverse_lazy("main:tasktype-list")
+
+
+class TaskTypeDeleteView(DeleteView):
+    model = TaskType
+    template_name = "main/tasktype_confirm_delete.html"
+    success_url = reverse_lazy("main:tasktype-list")
