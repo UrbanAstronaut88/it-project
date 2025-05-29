@@ -15,7 +15,7 @@ from .views import (
     WorkerDetailView,
     WorkerCreateView,
     WorkerUpdateView,
-    WorkerDeleteView, TaskTypeListView, TaskTypeCreateView, TaskTypeUpdateView, TaskTypeDeleteView,
+    WorkerDeleteView, TaskTypeListView, TaskTypeCreateView, TaskTypeUpdateView, TaskTypeDeleteView, task_complete,
 )
 
 app_name = "main"
@@ -37,7 +37,7 @@ urlpatterns = [
     path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
-    path("tasks/<int:pk>/complete/", views.task_complete, name="task-complete"),
+    path("tasks/<int:pk>/complete/", task_complete, name="task-complete"),
     path("tasktypes/", TaskTypeListView.as_view(), name="tasktype-list"),
     path("tasktypes/create/", TaskTypeCreateView.as_view(), name="tasktype-create"),
     path("tasktypes/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="tasktype-update"),
