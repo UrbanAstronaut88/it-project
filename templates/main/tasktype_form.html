@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}
   Task Type
@@ -10,7 +11,7 @@
 
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
     <a href="{% url 'main:tasktype-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
   </form>
