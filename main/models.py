@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import ManyToManyField
+from django.views.generic import ListView
 
 
 class Position(models.Model):
@@ -15,6 +15,12 @@ class TaskType(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TaskTypeListView(ListView):
+    model = TaskType
+    template_name = "main/tasktype_list.html"
+    context_object_name = "task_types"
 
 
 class Worker(AbstractUser):
