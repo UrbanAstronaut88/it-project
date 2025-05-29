@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Task Type
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>{{ view.object.pk|yesno:"Update Task Type,Create Task Type" }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-sm btn-outline-primary">Save</button>
+    <a href="{% url 'main:tasktype-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}
