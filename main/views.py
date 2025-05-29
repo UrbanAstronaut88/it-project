@@ -1,4 +1,7 @@
+from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -149,6 +152,22 @@ class TaskDeleteView(DeleteView):
     model = Task
     template_name = "main/task_confirm_delete.html"
     success_url = reverse_lazy("main:task-list")
+
+
+@login_required
+def task_complete(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+
+    if request.user == in task.assignees.all():
+        if not task.is_completed:
+            task.is_completed = True
+            task.save()
+            messages.success(request, "Task marked as completed.")
+        else:
+            messages.info(request, "Task was already completed.")
+    else:
+        messages.error(request, "You are not assigned to this task.")
+    return redirect("main:worker-detail", pk=request.user.pk)
 
 
 class TaskTypeListView(ListView):
