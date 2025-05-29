@@ -20,11 +20,16 @@
             <a class="nav-link" href="{% url 'main:project-list' %}">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:task-list' %}">Tasks</a>  <!-- позже подключим -->
+            <a class="nav-link" href="{% url 'main:task-list' %}">Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:worker-list' %}">Employees</a>
+            <a class="nav-link" href="{% url 'main:worker-list' %}"> Employees</a>
           </li>
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'main:my-tasks' %}">🧾 My Tasks</a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </div>

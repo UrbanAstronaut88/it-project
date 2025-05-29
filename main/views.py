@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -154,7 +155,7 @@ class TaskDeleteView(DeleteView):
     success_url = reverse_lazy("main:task-list")
 
 
-@login_required
+#@login_required
 def task_complete(request, pk):
     task = get_object_or_404(Task, pk=pk)
 
@@ -194,3 +195,19 @@ class TaskTypeDeleteView(DeleteView):
     model = TaskType
     template_name = "main/tasktype_confirm_delete.html"
     success_url = reverse_lazy("main:tasktype-list")
+
+
+class MyTasksListView(ListView):
+    model = Task
+    template_name = "main/my_tasks.html"
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return Task.objects.filter(assignees=self.request.user)
+
+
+#@login_required
+# def my_tasks_view(request):
+#     user = request.user
+#     tasks = Task.objects.filter(assignees=user)
+#     return render(request, "main/my_tasks.html", {"tasks": tasks})
