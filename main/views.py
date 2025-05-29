@@ -137,6 +137,13 @@ class TaskCreateView(CreateView):
     template_name = "main/task_form.html"
     success_url = reverse_lazy("main:task-list")
 
+    def get_initial(self):
+        initial = super().get_initial()
+        project_id = self.request.GET.get("project")
+        if project_id:
+            initial["project"] = project_id
+        return initial
+
 
 class TaskUpdateView(UpdateView):
     model = Task
