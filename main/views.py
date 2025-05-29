@@ -78,12 +78,6 @@ class WorkerCreateView(CreateView):
     template_name = "main/worker_form.html"
     success_url = reverse_lazy("main:worker-list")
 
-    # def form_valid(self, form):
-    #     user = form.save(commit=False)
-    #     user.set_password(form.cleaned_data["password"])
-    #     user.save()
-    #     return super().form_valid(form)
-
 
 class WorkerUpdateView(UpdateView):
     model = User

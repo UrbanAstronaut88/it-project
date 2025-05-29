@@ -35,17 +35,6 @@
           </select>
         </div>
 
-        <!-- ✅ New block: filter by status -->
-        <div class="col-auto">
-          <label for="status" class="form-label">Filter by Status:</label>
-          <select name="status" id="status" class="form-select form-select-sm">
-            <option value="">All Statuses</option>
-            <option value="new" {% if selected_status == "new" %}selected{% endif %}>New</option>
-            <option value="in_progress" {% if selected_status == "in_progress" %}selected{% endif %}>In progress</option>
-            <option value="done" {% if selected_status == "done" %}selected{% endif %}>Done</option>
-          </select>
-        </div>
-
         <div class="col-auto">
           <button type="submit" class="btn btn-sm btn-dark mt-3">Apply Filters</button>
           <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
