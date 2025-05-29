@@ -8,6 +8,41 @@
   <div class="container mt-4">
     <h2 class="mb-4">Tasks</h2>
 
+    <!-- 🔍 filter block -->
+    <div class="mb-3">
+      <form method="get" class="row g-2 align-items-end">
+        <div class="col-auto">
+          <label for="project" class="form-label">Filter by Project:</label>
+          <select name="project" id="project" class="form-select form-select-sm">
+            <option value="">All Projects</option>
+            {% for project in projects %}
+              <option value="{{ project.id }}" {% if project.id|stringformat:"s" == selected_project_id %}selected{% endif %}>
+                {{ project.name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-auto">
+          <label for="assignee" class="form-label">Filter by Assignee:</label>
+          <select name="assignee" id="assignee" class="form-select form-select-sm">
+            <option value="">All Workers</option>
+            {% for worker in workers %}
+              <option value="{{ worker.id }}" {% if worker.id|stringformat:"s" == selected_assignee_id %}selected{% endif %}>
+                {{ worker.first_name }} {{ worker.last_name }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="col-auto">
+          <button type="submit" class="btn btn-sm btn-dark mt-3">Apply Filters</button>
+          <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- 🔘 Creation buttons -->
     <div class="mb-4">
       <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me2">← Main page</a>
       <a href="{% url 'main:task-create' %}" class="btn btn-sm btn-outline-dark">
