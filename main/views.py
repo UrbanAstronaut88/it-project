@@ -8,7 +8,7 @@ from django.views.generic import (
     DeleteView,
     CreateView
 )
-from main.forms import ProjectForm
+from main.forms import ProjectForm, TaskForm
 from main.models import Project, Task, TaskType
 
 
@@ -104,16 +104,22 @@ class TaskListView(ListView):
     context_object_name = "tasks"
 
     def get_queryset(self):
-        queryset = Task.objects.select_related("project")
+        queryset = Task.objects.select_related("project").prefetch_related("assignees")
         project_id = self.request.GET.get("project")
+        assignee_id = self.request.GET.get("assignee")
+
         if project_id:
             queryset = queryset.filter(project_id=project_id)
+        if assignee_id:
+            queryset = queryset.filter(assignees__id=assignee_id)
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["projects"] = Project.objects.all()
         context["selected_project_id"] = self.request.GET.get("project")
+        context["workers"] = get_user_model().objects.all()
+        context["selected_assignee_id"] = self.request.GET.get("assignee")
         return context
 
 
@@ -125,15 +131,7 @@ class TaskDetailView(DetailView):
 
 class TaskCreateView(CreateView):
     model = Task
-    fields = [
-        "name",
-        "description",
-        "deadline",
-        "priority",
-        "task_type",
-        "assignees",
-        "project",
-    ]
+    form_class = TaskForm
     template_name = "main/task_form.html"
     success_url = reverse_lazy("main:task-list")
 
@@ -147,15 +145,7 @@ class TaskCreateView(CreateView):
 
 class TaskUpdateView(UpdateView):
     model = Task
-    fields = [
-        "name",
-        "description",
-        "deadline",
-        "is_completed",
-        "priority",
-        "task_type",
-        "assignees",
-    ]
+    form_class = TaskForm
     template_name = "main/task_form.html"
     success_url = reverse_lazy("main:task-list")
 
