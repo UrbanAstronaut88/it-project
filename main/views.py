@@ -9,7 +9,7 @@ from django.views.generic import (
     CreateView
 )
 from main.forms import ProjectForm, TaskForm
-from main.models import Project, Task, TaskType
+from main.models import Project, Task, TaskType, Worker
 
 
 class ProjectListView(ListView):
@@ -107,19 +107,23 @@ class TaskListView(ListView):
         queryset = Task.objects.select_related("project").prefetch_related("assignees")
         project_id = self.request.GET.get("project")
         assignee_id = self.request.GET.get("assignee")
+        status = self.request.GET.get("status")
 
         if project_id:
             queryset = queryset.filter(project_id=project_id)
         if assignee_id:
             queryset = queryset.filter(assignees__id=assignee_id)
-        return queryset
+        if status:
+            queryset = queryset.filter(status=status)
+        return queryset.distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["projects"] = Project.objects.all()
-        context["selected_project_id"] = self.request.GET.get("project")
-        context["workers"] = get_user_model().objects.all()
-        context["selected_assignee_id"] = self.request.GET.get("assignee")
+        context["workers"] = Worker.objects.all()
+        context["selected_project_id"] = self.request.GET.get("project", "")
+        context["selected_assignee_id"] = self.request.GET.get("assignee", "")
+        context["selected_status"] = self.request.GET.get("status", "")
         return context
 
 
