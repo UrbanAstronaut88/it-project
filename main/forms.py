@@ -9,7 +9,7 @@ from crispy_forms.layout import Submit
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ["name", "description"]
+        fields = ["name", "description", "deadline"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
