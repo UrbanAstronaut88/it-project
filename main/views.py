@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
@@ -12,7 +12,7 @@ from django.views.generic import (
     DeleteView,
     CreateView
 )
-from main.forms import ProjectForm, TaskForm
+from main.forms import ProjectForm, TaskForm, RegisterForm
 from main.models import Project, Task, TaskType, Worker
 
 
@@ -207,8 +207,15 @@ class MyTasksListView(ListView):
         return Task.objects.filter(assignees=self.request.user)
 
 
-#@login_required
-# def my_tasks_view(request):
-#     user = request.user
-#     tasks = Task.objects.filter(assignees=user)
-#     return render(request, "main/my_tasks.html", {"tasks": tasks})
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # < автоматический вход после регистрации(глянуть документацию)
+            return redirect("main:project-list")
+
+    else:
+        form = RegisterForm()
+    return render(request, "registration/register.html", {"form": form})
+
