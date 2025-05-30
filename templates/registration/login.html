@@ -11,8 +11,9 @@
     <form method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <button type="submit" class="btn btn-sm btn-outline-secondary">Login</button>
+      <button type="submit" class="btn btn-sm btn-outline-primary">Login</button>
     </form>
   </div>
 </div>
 {% endblock %}
+# не забыть добавить кнопку Back

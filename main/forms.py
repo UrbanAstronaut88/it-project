@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import Project, Task, Worker
 from crispy_forms.helper import FormHelper
@@ -37,3 +38,10 @@ class WorkerForm(forms.ModelForm):
         model = User
         fields = ["first_name", "last_name", "email", "position"]
 
+
+class RegisterForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ["username", "password1", "password2"]
