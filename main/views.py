@@ -201,7 +201,7 @@ class MyTasksListView(ListView):
     model = Task
     template_name = "main/my_tasks.html"
     context_object_name = "tasks"
-    paginate_by = 1
+    #paginate_by = 3
 
     def get_queryset(self):
         return Task.objects.filter(assignees=self.request.user)
