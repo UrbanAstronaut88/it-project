@@ -22,7 +22,7 @@ from .views import (
     TaskTypeDeleteView,
     task_complete,
     MyTasksListView,
-    register,
+    RegisterView,
 )
 
 app_name = "main"
@@ -37,8 +37,7 @@ urlpatterns = [
     path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
     path("workers/create/", WorkerCreateView.as_view(), name="worker-create"),
     path("workers/<int:pk>/update/", WorkerUpdateView.as_view(), name="worker-update"),
-    path(
-        "workers/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
+    path("workers/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
     path("tasks/", TaskListView.as_view(), name="task-list"),
     path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
     path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
@@ -50,5 +49,5 @@ urlpatterns = [
     path("tasktypes/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="tasktype-update"),
     path("tasktypes/<int:pk>/delete/", TaskTypeDeleteView.as_view(), name="tasktype-delete"),
     path("my-tasks/", MyTasksListView.as_view(), name="my-tasks"),
-    path("register/", register, name="register"),
+    path("register/", RegisterView.as_view(), name="register"),
 ]
