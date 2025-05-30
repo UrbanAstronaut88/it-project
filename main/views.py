@@ -207,6 +207,7 @@ class MyTasksListView(ListView):
         return Task.objects.filter(assignees=self.request.user)
 
 
+#registration view
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
