@@ -411,7 +411,7 @@
 
                       <li class="nav-item ">
                         <a target="_blank" class="dropdown-item py-2 ps-3 border-radius-md" 
-                          href="https://appseed.us/support">
+                          href="https://mate.academy">
                           <div class="d-flex">
                             <div class="icon h-10 me-3 d-flex mt-1">
                               <svg class="text-secondary" width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -595,8 +595,9 @@
                     </div>
                   </ul>
                 </li>
+                {% if user.is_authenticated %}
                   <li class="nav-item ms-lg-auto">
-                    <form action="{% url 'main:logout' %}" method="post" class="d-inline">
+                    <form method="post" action="{% url 'main:logout' %}" class="d-inline">
                       {% csrf_token %}
                       <button type="submit" class="nav-link nav-link-icon me-2 bg-transparent border-0 p-0.2" style="cursor: pointer;">
                         <i class="fa fa-sign-out me-1"></i>
@@ -604,6 +605,14 @@
                       </button>
                     </form>
                   </li>
+                {% else %}
+                  <li class="nav-item ms-lg-auto">
+                    <a href="{% url 'main:login' %}" class="nav-link nav-link-icon me-2 bg-transparent border-0 p-0.2" style="cursor: pointer;">
+                      <i class="fa fa-sign-in me-1"></i>
+                      <span class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">Login</span>
+                    </a>
+                  </li>
+                {% endif %}
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                   <a href="https://mate.academy"
                      target="_blank"

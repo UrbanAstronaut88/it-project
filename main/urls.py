@@ -23,7 +23,7 @@ from .views import (
     TaskTypeDeleteView,
     task_complete,
     MyTasksListView,
-    login_view, register_user,
+    login_view, register_user, logout_view,
 )
 
 app_name = "main"
@@ -54,5 +54,6 @@ urlpatterns = [
     path("my-tasks/", MyTasksListView.as_view(), name="my-tasks"),
     path("login/", login_view, name="login"),
     path("register/", register_user, name="register"),
-    path("logout/", LogoutView.as_view(), name="logout"),
+    # path("logout/", LogoutView.as_view(next_page="main:login"), name="logout"),
+    path("logout/", logout_view, name="logout"),
 ]

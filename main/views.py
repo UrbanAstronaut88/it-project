@@ -1,10 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import logout as auth_logout, logout
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LogoutView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -237,7 +237,7 @@ def login_view(request):
                 login(request, user)
                 return redirect("/")
             else:
-                msg = 'Invalid credentials'
+                msg = "Invalid credentials"
         else:
             msg = 'Error validating the form'
 
@@ -262,8 +262,22 @@ def register_user(request):
             # return redirect("/login/")
 
         else:
-            msg = 'Form is not valid'
+            msg = "Form is not valid"
     else:
         form = SignUpForm()
 
     return render(request, "registration/register.html", {"form": form, "msg": msg, "success": success})
+
+
+#Logout
+def logout_view(request):
+    if request.method == "POST":
+        print("LOGOUT works")
+        logout(request)
+        return redirect("main:login")
+    else:
+        return HttpResponse("Logout only via POST", status=405)
+
+    # print("LOGOUT WORKS!!!!")
+    # logout(request)
+    # return redirect("main:login")
