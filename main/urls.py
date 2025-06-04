@@ -1,3 +1,4 @@
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
 from .views import (
     ProjectListView,
@@ -22,10 +23,12 @@ from .views import (
     TaskTypeDeleteView,
     task_complete,
     MyTasksListView,
-    RegisterView,
+    login_view, register_user,
 )
 
 app_name = "main"
+
+
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("projects/", ProjectListView.as_view(), name="project-list"),
@@ -49,5 +52,7 @@ urlpatterns = [
     path("tasktypes/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="tasktype-update"),
     path("tasktypes/<int:pk>/delete/", TaskTypeDeleteView.as_view(), name="tasktype-delete"),
     path("my-tasks/", MyTasksListView.as_view(), name="my-tasks"),
-    path("register/", RegisterView.as_view(), name="register"),
+    path("login/", login_view, name="login"),
+    path("register/", register_user, name="register"),
+    path("logout/", LogoutView.as_view(), name="logout"),
 ]
