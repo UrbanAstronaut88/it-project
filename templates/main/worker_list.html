@@ -22,10 +22,10 @@
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for worker in workers %}
           <div class="col">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm border border-dark rounded-3">
               <div class="card-body">
                 <h5 class="card-title">
-                  <a href="{% url 'main:workers:worker-detail' worker.pk %}" class="text-decoration-none">
+                  <a href="{% url 'main:workers:worker-detail' worker.pk %}" class="text-decoration-none text-dark">
                     {{ worker.first_name }} {{ worker.last_name }}
                   </a>
                 </h5>
@@ -44,4 +44,3 @@
     {% endif %}
   </div>
 {% endblock %}
-

@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="container mt-4">
-  <div class="card shadow-sm">
+  <div class="card shadow-sm border border-dark rounded-3">
     <div class="card-body">
       <h4 class="card-title">{{ worker.first_name }} {{ worker.last_name }}</h4>
       <h6 class="card-subtitle mb-2 text-muted">{{ worker.position }}</h6>
@@ -17,22 +17,22 @@
     <div class="card-footer d-flex justify-content-between">
       <a href="{% url 'main:workers:worker-update' worker.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
       <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-      <a href="{% url 'main:workers:worker-list' %}" class="btn btn-sm btn-outline-secondary">Back</a>
+      <a href="{% url 'main:workers:worker-list' %}" class="btn btn-sm btn-outline-secondary">← Back to Workers</a>
     </div>
   </div>
 
-  <div class="mt-4">
+  <div class="mt-5">
     <h5>Assigned Tasks</h5>
-    <ul class="list-group mt-2">
+    <ul class="list-group mt-3">
       {% for task in worker.tasks.all %}
-        <li class="list-group-item d-flex justify-content-between align-items-start">
+        <li class="list-group-item d-flex justify-content-between align-items-start border rounded-2 shadow-sm mb-2">
           <div class="me-3">
-            <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
+            <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none text-dark">
               <strong>{{ task.name }}</strong>
             </a>
             <p class="mb-1">{{ task.description|truncatewords:15 }}</p>
             <small class="text-muted">
-              Project: {{ task.project.name }} | Deadline: {{ task.deadline }} | 
+              Project: {{ task.project.name }} | Deadline: {{ task.deadline }} |
               {% if task.is_completed %}
                 ✅ Completed
               {% else %}
@@ -51,7 +51,7 @@
           </div>
         </li>
       {% empty %}
-        <li class="list-group-item">No tasks assigned to this worker.</li>
+        <li class="list-group-item border">No tasks assigned to this worker.</li>
       {% endfor %}
     </ul>
   </div>
