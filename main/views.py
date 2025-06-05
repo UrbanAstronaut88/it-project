@@ -272,12 +272,8 @@ def register_user(request):
 #Logout
 def logout_view(request):
     if request.method == "POST":
-        print("LOGOUT works")
+        print("LOGOUT works")            # не забыть убрать !!!!!!
         logout(request)
         return redirect("main:login")
     else:
         return HttpResponse("Logout only via POST", status=405)
-
-    # print("LOGOUT WORKS!!!!")
-    # logout(request)
-    # return redirect("main:login")
