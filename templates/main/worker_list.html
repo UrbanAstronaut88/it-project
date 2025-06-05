@@ -8,9 +8,14 @@
   <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="mb-0">Workers</h2>
-      <a href="{% url 'main:worker-create' %}" class="btn btn-sm btn-outline-dark">
-        + Add new worker
-      </a>
+      <div>
+        <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">
+          ← Back to Main
+        </a>
+        <a href="{% url 'main:workers:worker-create' %}" class="btn btn-sm btn-outline-dark">
+          + Add new worker
+        </a>
+      </div>
     </div>
 
     {% if workers %}
@@ -20,15 +25,15 @@
             <div class="card h-100 shadow-sm">
               <div class="card-body">
                 <h5 class="card-title">
-                  <a href="{% url 'main:worker-detail' worker.pk %}" class="text-decoration-none">
+                  <a href="{% url 'main:workers:worker-detail' worker.pk %}" class="text-decoration-none">
                     {{ worker.first_name }} {{ worker.last_name }}
                   </a>
                 </h5>
                 <p class="card-text text-muted mb-1">{{ worker.position }}</p>
               </div>
               <div class="card-footer d-flex justify-content-between">
-                <a href="{% url 'main:worker-update' worker.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
-                <a href="{% url 'main:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                <a href="{% url 'main:workers:worker-update' worker.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+                <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
               </div>
             </div>
           </div>
@@ -39,3 +44,4 @@
     {% endif %}
   </div>
 {% endblock %}
+

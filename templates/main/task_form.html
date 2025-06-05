@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 {% load crispy_forms_filters %}
 
 {% block title %}
@@ -30,7 +30,7 @@
             Create
           {% endif %}
         </button>
-        <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+        <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
       </form>
     </div>
   </div>

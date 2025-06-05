@@ -1,10 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth import logout as auth_logout, logout
+from django.contrib.auth import logout
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LogoutView
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import (
@@ -40,20 +39,20 @@ class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
     template_name = "main/project_form.html"
-    success_url = reverse_lazy("main:project-list")
+    success_url = reverse_lazy("main:projects:project-list")
 
 
 class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     template_name = "main/project_form.html"
-    success_url = reverse_lazy("main:project-list")
+    success_url = reverse_lazy("main:projects:project-list")
 
 
 class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = "main/project_confirm_delete.html"
-    success_url = reverse_lazy("main:project-list")
+    success_url = reverse_lazy("main:projects:project-list")
 
 
 class HomeView(TemplateView):
@@ -90,20 +89,20 @@ class WorkerCreateView(CreateView):
     model = User
     fields = ("username", "first_name", "last_name", "email", "position")
     template_name = "main/worker_form.html"
-    success_url = reverse_lazy("main:worker-list")
+    success_url = reverse_lazy("main:workers:worker-list")
 
 
 class WorkerUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     fields = ("username", "first_name", "last_name", "email", "position")
     template_name = "main/worker_form.html"
-    success_url = reverse_lazy("main:worker-list")
+    success_url = reverse_lazy("main:workers:worker-list")
 
 
 class WorkerDeleteView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = "main/worker_confirm_delete.html"
-    success_url = reverse_lazy("main:worker-list")
+    success_url = reverse_lazy("main:workers:worker-list")
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -141,7 +140,7 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "main/task_form.html"
-    success_url = reverse_lazy("main:task-list")
+    success_url = reverse_lazy("main:tasks:task-list")
 
     def get_initial(self):
         initial = super().get_initial()
@@ -155,13 +154,13 @@ class TaskUpdateView(LoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "main/task_form.html"
-    success_url = reverse_lazy("main:task-list")
+    success_url = reverse_lazy("main:tasks:task-list")
 
 
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = "main/task_confirm_delete.html"
-    success_url = reverse_lazy("main:task-list")
+    success_url = reverse_lazy("main:tasks:task-list")
 
 
 @login_required
@@ -177,7 +176,7 @@ def task_complete(request, pk):
             messages.info(request, "Task was already completed.")
     else:
         messages.error(request, "You are not assigned to this task.")
-    return redirect("main:worker-detail", pk=request.user.pk)
+    return redirect("main:workers:worker-detail", pk=request.user.pk)
 
 
 class TaskTypeListView(LoginRequiredMixin, ListView):
@@ -190,20 +189,20 @@ class TaskTypeCreateView(LoginRequiredMixin, CreateView):
     model = TaskType
     fields = ["name"]
     template_name = "main/tasktype_form.html"
-    success_url = reverse_lazy("main:tasktype-list")
+    success_url = reverse_lazy("main:tasktypes:tasktype-list")
 
 
 class TaskTypeUpdateView(LoginRequiredMixin, UpdateView):
     model = TaskType
     fields = ["name"]
     template_name = "main/tasktype_form.html"
-    success_url = reverse_lazy("main:tasktype-list")
+    success_url = reverse_lazy("main:tasktypes:tasktype-list")
 
 
 class TaskTypeDeleteView(LoginRequiredMixin, DeleteView):
     model = TaskType
     template_name = "main/tasktype_confirm_delete.html"
-    success_url = reverse_lazy("main:tasktype-list")
+    success_url = reverse_lazy("main:tasktypes:tasktype-list")
 
 
 class MyTasksListView(LoginRequiredMixin, ListView):

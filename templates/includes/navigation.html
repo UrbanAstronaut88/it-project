@@ -19,7 +19,7 @@
               <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
                 <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                    Pages
+                    Workers
                     <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                   </a>
                   <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
@@ -28,7 +28,7 @@
                         <div class="d-inline-block">
                           <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <title>shop </title>
+                              <title>workers</title>
                               <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <g id="Rounded-Icons" transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                   <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">
@@ -42,16 +42,13 @@
                             </svg>
                           </div>
                         </div>
-                        Landing Pages
+                        Workers List
                       </h6>
-                      <a href="/page-about-us.html" class="dropdown-item border-radius-md">
-                        About Us
+                      <a href="{% url 'main:workers:worker-list' %}" class="dropdown-item border-radius-md">
+                        Workers
                       </a>
-                      <a href="/page-contact-us.html" class="dropdown-item border-radius-md">
-                        Contact Us
-                      </a>
-                      <a href="/page-author.html" class="dropdown-item border-radius-md">
-                        Author
+                      <a href="{% url 'main:workers:worker-create' %}" class="dropdown-item border-radius-md">
+                        Add worker
                       </a>
                       <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0 mt-3">
                         <div class="d-inline-block">
@@ -73,14 +70,18 @@
                         </div>
                         Account
                       </h6>
-                      <a href="/page-sign-in.html" class="dropdown-item border-radius-md">
-                        Sign In
-                      </a>
-                      <a href="/page-sign-up.html" class="dropdown-item border-radius-md">
-                        Register
-                      </a>
-                      <a href="/page-404.html" class="dropdown-item border-radius-md">
-                        Error 404
+                      {% if user.is_authenticated %}
+                        <a href="{% url 'main:workers:worker-detail' user.pk %}" class="dropdown-item border-radius-md">
+                          My Profile
+                        </a>
+                      {% else %}
+                        <a href="{% url 'main:login' %}" class="dropdown-item border-radius-md">
+                          Sign In
+                        </a>
+                      {% endif %}
+
+                      <a href="{% url 'main:register' %}" class="dropdown-item border-radius-md">
+                        Sign Up
                       </a>
                     </div>
                     <div class="d-lg-none">
@@ -88,7 +89,7 @@
                         <div class="d-inline-block">
                           <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center">
                             <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <title>shop </title>
+                              <title>shop</title>
                               <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <g id="Rounded-Icons" transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                   <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">
@@ -117,7 +118,7 @@
                         <div class="d-inline-block">
                           <div class="icon icon-shape icon-xs border-radius-md bg-gradient-primary text-center me-2 d-flex align-items-center justify-content-center ps-0">
                             <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                              <title>office</title>
+                              <title>Account / Sign Up</title>
                               <g id="Basic-Elements" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                 <g id="Rounded-Icons" transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF" fill-rule="nonzero">
                                   <g id="Icons-with-opacity" transform="translate(1716.000000, 291.000000)">

@@ -1,65 +1,24 @@
-from django.urls import path
-from .views import (
-    HomeView,
-
-    # Projects
-    ProjectListView, ProjectDetailView, ProjectCreateView,
-    ProjectUpdateView, ProjectDeleteView,
-
-    # Tasks
-    TaskListView, TaskDetailView, TaskCreateView,
-    TaskUpdateView, TaskDeleteView, task_complete, MyTasksListView,
-
-    # Workers
-    WorkerListView, WorkerDetailView, WorkerCreateView,
-    WorkerUpdateView, WorkerDeleteView,
-
-    # TaskTypes
-    TaskTypeListView, TaskTypeCreateView,
-    TaskTypeUpdateView, TaskTypeDeleteView,
-
-    # Auth
-    login_view, register_user, logout_view,
-)
+from django.urls import path, include
+from .views import HomeView, login_view, register_user, logout_view
 
 app_name = "main"
 
 urlpatterns = [
-    # Home
     path("", HomeView.as_view(), name="home"),
 
-    # Projects
-    path("projects/", ProjectListView.as_view(), name="project-list"),
-    path("projects/create/", ProjectCreateView.as_view(), name="project-create"),
-    path("projects/<int:pk>/", ProjectDetailView.as_view(), name="project-detail"),
-    path("projects/<int:pk>/update/", ProjectUpdateView.as_view(), name="project-update"),
-    path("projects/<int:pk>/delete/", ProjectDeleteView.as_view(), name="project-delete"),
+    # Project URLs
+    path("projects/", include(("main.project_urls", "main"), namespace="projects")),
 
-    # Tasks
-    path("tasks/", TaskListView.as_view(), name="task-list"),
-    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
-    path("tasks/<int:pk>/", TaskDetailView.as_view(), name="task-detail"),
-    path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task-update"),
-    path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task-delete"),
-    path("tasks/<int:pk>/complete/", task_complete, name="task-complete"),
+    # Task URLs
+    path("tasks/", include(("main.task_urls", "main"), namespace="tasks")),
 
-    # My Tasks
-    path("my-tasks/", MyTasksListView.as_view(), name="my-tasks"),
+    # Worker URLs
+    path("workers/", include(("main.worker_urls", "main"), namespace="workers")),
 
-    # Workers
-    path("workers/", WorkerListView.as_view(), name="worker-list"),
-    path("workers/create/", WorkerCreateView.as_view(), name="worker-create"),
-    path("workers/<int:pk>/", WorkerDetailView.as_view(), name="worker-detail"),
-    path("workers/<int:pk>/update/", WorkerUpdateView.as_view(), name="worker-update"),
-    path("workers/<int:pk>/delete/", WorkerDeleteView.as_view(), name="worker-delete"),
+    # TaskType URLs
+    path("tasktypes/", include(("main.tasktype_urls", "main"), namespace="tasktypes")),
 
-    # Task Types
-    path("tasktypes/", TaskTypeListView.as_view(), name="tasktype-list"),
-    path("tasktypes/create/", TaskTypeCreateView.as_view(), name="tasktype-create"),
-    path("tasktypes/<int:pk>/update/", TaskTypeUpdateView.as_view(), name="tasktype-update"),
-    path("tasktypes/<int:pk>/delete/", TaskTypeDeleteView.as_view(), name="tasktype-delete"),
-
-    # Authentication
+    # Auth
     path("login/", login_view, name="login"),
     path("register/", register_user, name="register"),
     path("logout/", logout_view, name="logout"),

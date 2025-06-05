@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}
   Delete Project
@@ -12,7 +12,7 @@
   <form method="post">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">Confirm Delete</button>
-    <a href="{% url 'main:project-detail' project.pk %}" class="btn btn-secondary">Cancel</a>
+    <a href="{% url 'main:projects:project-detail' project.pk %}" class="btn btn-secondary">Cancel</a>
   </form>
 </div>
 {% endblock %}

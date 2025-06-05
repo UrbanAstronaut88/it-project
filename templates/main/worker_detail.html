@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}
   Worker Detail
@@ -15,9 +15,9 @@
     </div>
 
     <div class="card-footer d-flex justify-content-between">
-      <a href="{% url 'main:worker-update' worker.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
-      <a href="{% url 'main:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-      <a href="{% url 'main:worker-list' %}" class="btn btn-sm btn-outline-secondary">Back</a>
+      <a href="{% url 'main:workers:worker-update' worker.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+      <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+      <a href="{% url 'main:workers:worker-list' %}" class="btn btn-sm btn-outline-secondary">Back</a>
     </div>
   </div>
 
@@ -27,7 +27,7 @@
       {% for task in worker.tasks.all %}
         <li class="list-group-item d-flex justify-content-between align-items-start">
           <div class="me-3">
-            <a href="{% url 'main:task-detail' task.pk %}" class="text-decoration-none">
+            <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
               <strong>{{ task.name }}</strong>
             </a>
             <p class="mb-1">{{ task.description|truncatewords:15 }}</p>
@@ -43,7 +43,7 @@
           <div class="d-flex flex-column align-items-end">
             <span class="badge bg-{{ task.priority|lower }} mb-2">{{ task.priority }}</span>
             {% if not task.is_completed and request.user == worker %}
-              <form method="post" action="{% url 'main:task-complete' task.pk %}">
+              <form method="post" action="{% url 'main:tasks:task-complete' task.pk %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-sm btn-success">Mark as Done</button>
               </form>

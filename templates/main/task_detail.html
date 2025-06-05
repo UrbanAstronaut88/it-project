@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}
   Task: {{ task.name }}
@@ -30,9 +30,9 @@
         </p>
 
         <div class="d-flex gap-2 mt-4">
-          <a href="{% url 'main:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-          <a href="{% url 'main:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-          <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Back to List</a>
+          <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+          <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+          <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary">Back to List</a>
         </div>
       </div>
     </div>

@@ -1,14 +1,14 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block content %}
   <div class="container mt-4">
-    <h2>You are about to permanently delete the following task.</h2>
+    <h5>You are about to permanently delete the following task.</h5>
     <p>Are you sure you want to delete the task: <strong>{{ object.name }}</strong>?</p>
     
     <form method="post">
       {% csrf_token %}
       <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-      <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+      <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
     </form>
   </div>
 {% endblock %}

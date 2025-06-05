@@ -12,14 +12,14 @@
   <p><strong>Deadline:</strong> {{ project.deadline }}</p>
 
   <div class="mb-3">
-    <a href="{% url 'main:project-update' project.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
-    <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-    <a href="{% url 'main:project-list' %}" class="btn btn-sm btn-outline-secondary">Back to list</a>
+    <a href="{% url 'main:projects:project-update' project.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
+    <a href="{% url 'main:projects:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+    <a href="{% url 'main:projects:project-list' %}" class="btn btn-sm btn-outline-secondary">Back to list</a>
   </div>
 
   <div class="d-flex justify-content-between align-items-center mt-4 mb-2">
     <h4 class="mb-0">Tasks in this project</h4>
-    <a href="{% url 'main:task-create' %}?project={{ project.pk }}" class="btn btn-sm btn-outline-dark">
+    <a href="{% url 'main:tasks:task-create' %}?project={{ project.pk }}" class="btn btn-sm btn-outline-dark">
       + Add new task
     </a>
   </div>
@@ -31,7 +31,7 @@
           <div class="card h-100 shadow-sm">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'main:task-detail' task.pk %}" class="text-decoration-none">
+                <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
                   {{ task.name }}
                 </a>
               </h5>
@@ -42,8 +42,8 @@
               </p>
             </div>
             <div class="card-footer d-flex justify-content-between">
-              <a href="{% url 'main:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-              <a href="{% url 'main:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+              <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
             </div>
           </div>
         </div>

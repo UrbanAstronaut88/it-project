@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}
   Projects
@@ -10,7 +10,7 @@
 
   <div class="mb-3">
     <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">← Main page</a>
-    <a href="{% url 'main:project-create' %}" class="btn btn-sm btn-outline-dark">+ Create project</a>
+    <a href="{% url 'main:projects:project-create' %}" class="btn btn-sm btn-outline-dark">+ Create project</a>
   </div>
 
   {% if projects %}
@@ -20,7 +20,7 @@
           <div class="card h-100 shadow-sm">
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'main:project-detail' project.pk %}" class="text-decoration-none">
+                <a href="{% url 'main:projects:project-detail' project.pk %}" class="text-decoration-none">
                   {{ project.name }}
                 </a>
               </h5>
@@ -34,8 +34,8 @@
               {% endif %}
             </div>
             <div class="card-footer d-flex justify-content-between">
-              <a href="{% url 'main:project-update' project.pk %}" class="btn btn-sm btn-outline-warning">Update</a>
-              <a href="{% url 'main:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              <a href="{% url 'main:projects:project-update' project.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+              <a href="{% url 'main:projects:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
             </div>
           </div>
         </div>

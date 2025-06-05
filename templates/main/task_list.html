@@ -1,4 +1,4 @@
-{% extends "base_old.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}
   List of tasks
@@ -37,7 +37,7 @@
 
         <div class="col-auto">
           <button type="submit" class="btn btn-sm btn-dark mt-3">Apply Filters</button>
-          <a href="{% url 'main:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
+          <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
         </div>
       </form>
     </div>
@@ -45,7 +45,7 @@
     <!-- 🔘 Creation buttons -->
     <div class="mb-4">
       <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me2">← Main page</a>
-      <a href="{% url 'main:task-create' %}" class="btn btn-sm btn-outline-dark">
+      <a href="{% url 'main:tasks:task-create' %}" class="btn btn-sm btn-outline-dark">
         + Create new task
       </a>
     </div>
@@ -57,7 +57,7 @@
             <div class="card h-100 shadow-sm">
               <div class="card-body">
                 <h5 class="card-title">
-                  <a href="{% url 'main:task-detail' task.pk %}" class="text-decoration-none">
+                  <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
                     {{ task.name }}
                   </a>
                 </h5>
@@ -70,8 +70,8 @@
                 </p>
               </div>
               <div class="card-footer d-flex justify-content-between">
-                <a href="{% url 'main:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-                <a href="{% url 'main:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+                <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
               </div>
             </div>
           </div>

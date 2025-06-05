@@ -21,18 +21,18 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:project-list' %}">Projects</a>
+            <a class="nav-link" href="{% url 'main:projects:project-list' %}">Projects</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:task-list' %}">Tasks</a>
+            <a class="nav-link" href="{% url 'main:tasks:task-list' %}">Tasks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:worker-list' %}">Workers</a>
+            <a class="nav-link" href="{% url 'main:workers:worker-list' %}">Workers</a>
           </li>
 
           {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'main:my-tasks' %}">🧾 My Tasks</a>
+              <a class="nav-link" href="{% url 'main:tasks:my-tasks' %}">🧾 My Tasks</a>
             </li>
             <li class="nav-item">
               <span class="navbar-text text-white mx-2">
