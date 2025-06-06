@@ -3,7 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -23,7 +23,7 @@ class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "main/project_list.html"
     context_object_name = "projects"
-    paginate_by = 3
+    paginate_by = 9
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -104,7 +104,7 @@ class WorkerListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "main/worker_list.html"
     context_object_name = "workers"
-    paginate_by = 3
+    paginate_by = 9
 
     def paginate_queryset(self, queryset, page_size):
         """
@@ -162,7 +162,7 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "main/task_list.html"
     context_object_name = "tasks"
-    paginate_by = 2
+    paginate_by = 9
 
     def get_queryset(self):
         queryset = Task.objects.select_related("project").prefetch_related("assignees")

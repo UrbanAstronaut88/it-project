@@ -54,19 +54,22 @@
         <div class="col">
           <div class="card h-100 shadow-sm border border-dark">
             <div class="card-body">
-              <h5 class="card-title">
-                <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
-                  {{ task.name }}
-                </a>
-              </h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ task.status }}</h6>
-              <p class="card-text">
-                {{ task.description|truncatewords:20 }}
-              </p>
-              <p class="card-text">
-                <small class="text-muted">Project: {{ task.project.name }}</small>
-              </p>
-            </div>
+                <h5 class="card-title">
+                  <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
+                    {{ task.name }}
+                  </a>
+                </h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ task.status }}</h6>
+                <p class="card-text">
+                  {{ task.description|truncatewords:20 }}
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">Project: {{ task.project.name }}</small>
+                </p>
+                <p class="card-text">
+                  <small class="text-muted">Task Type: {{ task.task_type.name }}</small>
+                </p>
+            </div>  
             <div class="card-footer d-flex justify-content-between">
               <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
               <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
