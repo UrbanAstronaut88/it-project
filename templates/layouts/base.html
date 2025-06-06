@@ -2,6 +2,8 @@
 <html lang="en">
 
 <head>
+  {% block extra_css %}{% endblock %}
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="{{ ASSETS_ROOT }}/img/apple-icon.png">
@@ -9,7 +11,7 @@
   <link rel="canonical" href=""/>
   
   <title>
-    IT-Project - {% block title %}{% endblock %} Task Manager
+    Task Manager - {% block title %}{% endblock %} Main page
   </title>
 
   <!--     Fonts and icons     -->
@@ -30,6 +32,7 @@
 <body class="{% block body_class %}{% endblock body_class %}">
 
     {% block content %}{% endblock content %}
+    {% block extra_js %}{% endblock %}
   
     {% include "includes/footer.html" %}
 

@@ -1,6 +1,20 @@
 {% extends "layouts/base.html" %}
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#id_deadline", {
+      dateFormat: "d.m.Y",
+      altInput: true,
+      altFormat: "d.m.Y",
+    });
+  </script>
+{% endblock %}
 
 {% block title %}
   {% if form.instance.pk %}

@@ -12,7 +12,11 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ["name", "description", "deadline"]
         widgets = {
-            "deadline": forms.DateInput(attrs={"type": "date"})
+            "deadline": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "DD.MM.YYYY",
+                "id": "id_deadline",
+            }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -27,7 +31,11 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = "__all__"
         widgets = {
-            "deadline": forms.DateInput(attrs={"type": "date"})
+            "deadline": forms.TextInput(attrs={
+                "placeholder": "DD.MM.YYYY",
+                "class": "form-control",
+                "id": "id_deadline",
+            })
         }
 
 
