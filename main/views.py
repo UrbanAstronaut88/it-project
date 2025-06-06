@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth import get_user_model, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -35,6 +36,25 @@ class ProjectListView(LoginRequiredMixin, ListView):
             context["projects"] = paginator.page(paginator.num_pages)
 
         return context
+
+    def paginate_queryset(self, queryset, page_size):
+        """
+        Override to show the last page when it doesn't exist.
+        """
+        paginator = Paginator(queryset, page_size)
+        page = self.request.GET.get('page') or 1
+
+        try:
+            page_number = int(page)
+        except ValueError:
+            page_number = 1
+
+        try:
+            page_obj = paginator.page(page_number)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
@@ -84,7 +104,26 @@ class WorkerListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "main/worker_list.html"
     context_object_name = "workers"
-    paginate_by = 6
+    paginate_by = 3
+
+    def paginate_queryset(self, queryset, page_size):
+        """
+        Override to show the last page when it doesn't exist.
+        """
+        paginator = Paginator(queryset, page_size)
+        page = self.request.GET.get('page') or 1
+
+        try:
+            page_number = int(page)
+        except ValueError:
+            page_number = 1
+
+        try:
+            page_obj = paginator.page(page_number)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
 
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
@@ -143,6 +182,25 @@ class TaskListView(LoginRequiredMixin, ListView):
         context["selected_project_id"] = self.request.GET.get("project", "")
         context["selected_assignee_id"] = self.request.GET.get("assignee", "")
         return context
+
+    def paginate_queryset(self, queryset, page_size):
+        """
+        Override to show the last page when it doesn't exist.
+        """
+        paginator = Paginator(queryset, page_size)
+        page = self.request.GET.get("page") or 1
+
+        try:
+            page_number = int(page)
+        except ValueError:
+            page_number = 1
+
+        try:
+            page_obj = paginator.get_page(page_number)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+
+        return (paginator, page_obj, page_obj.object_list, page_obj.has_other_pages())
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
@@ -229,11 +287,6 @@ class MyTasksListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Task.objects.filter(assignees=self.request.user)
 
-
-# class RegisterView(CreateView):
-#     form_class = UserRegisterForm
-#     template_name = "registration/register.html"
-#     success_url = reverse_lazy("login")
 
 #LOGIN
 def login_view(request):

@@ -42,7 +42,7 @@
                             </svg>
                           </div>
                         </div>
-                        Workers List
+                        Our Staff
                       </h6>
                       <a href="{% url 'main:workers:worker-list' %}" class="dropdown-item border-radius-md">
                         Workers
@@ -145,6 +145,7 @@
                     Tasks
                     <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                   </a>
+
                   <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
                     <div class="d-none d-lg-block">
                       <li class="nav-item dropdown dropdown-hover dropdown-subitem">
@@ -162,6 +163,7 @@
                           </div>
                         </a>
                       </li>
+
                       <li class="nav-item dropdown dropdown-hover dropdown-subitem">
                         <a class="dropdown-item py-2 ps-3 border-radius-md" href="{% url 'main:tasks:task-create' %}">
                           <div class="d-flex">
@@ -177,6 +179,23 @@
                           </div>
                         </a>
                       </li>
+
+                      <li class="nav-item dropdown dropdown-hover dropdown-subitem">
+                        <a class="dropdown-item py-2 ps-3 border-radius-md" href="{% url 'main:tasktypes:tasktype-list' %}">
+                          <div class="d-flex">
+                            <div class="icon h-10 me-3 d-flex mt-1">
+                              <i class="ni ni-bullet-list-67 text-gradient text-primary"></i>
+                            </div>
+                            <div class="w-100 d-flex align-items-center justify-content-between">
+                              <div>
+                                <h6 class="dropdown-header text-dark font-weight-bolder d-flex align-items-center p-0">Task types</h6>
+                                <span class="text-sm">Manage task categories</span>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+
                     </div>
                   </ul>
                 </li>
