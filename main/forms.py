@@ -12,9 +12,12 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = ["name", "description", "deadline"]
         widgets = {
-            "deadline": forms.TextInput(attrs={
+            "deadline": forms.DateInput(attrs={
                 "class": "form-control",
-                "placeholder": "DD.MM.YYYY",
+                "type": "text",
+                "placeholder": "YYYY-MM-DD",
+                "data-provider": "flatpickr",
+                "date-date-format": "Y-m-d",
                 "id": "id_deadline",
             }),
         }

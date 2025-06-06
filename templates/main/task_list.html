@@ -1,86 +1,128 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}
-  List of tasks
+  Tasks
 {% endblock %}
 
 {% block content %}
-  <div class="container mt-4">
-    <h2 class="mb-4">Tasks</h2>
+<div class="container mt-4">
+  <h2 class="mb-4">Tasks</h2>
 
-    <!-- 🔍 filter block -->
-    <div class="mb-3">
-      <form method="get" class="row g-2 align-items-end">
-        <div class="col-auto">
-          <label for="project" class="form-label">Filter by Project:</label>
-          <select name="project" id="project" class="form-select form-select-sm">
-            <option value="">All Projects</option>
-            {% for project in projects %}
-              <option value="{{ project.id }}" {% if project.id|stringformat:"s" == selected_project_id %}selected{% endif %}>
-                {{ project.name }}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
+  <!-- Фильтры -->
+  <div class="mb-3">
+    <form method="get" class="row g-2 align-items-end">
+      <div class="col-auto">
+        <label for="project" class="form-label">Filter by Project:</label>
+        <select name="project" id="project" class="form-select form-select-sm">
+          <option value="">All Projects</option>
+          {% for project in projects %}
+            <option value="{{ project.id }}" {% if project.id|stringformat:"s" == selected_project_id %}selected{% endif %}>
+              {{ project.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-        <div class="col-auto">
-          <label for="assignee" class="form-label">Filter by Assignee:</label>
-          <select name="assignee" id="assignee" class="form-select form-select-sm">
-            <option value="">All Workers</option>
-            {% for worker in workers %}
-              <option value="{{ worker.id }}" {% if worker.id|stringformat:"s" == selected_assignee_id %}selected{% endif %}>
-                {{ worker.first_name }} {{ worker.last_name }}
-              </option>
-            {% endfor %}
-          </select>
-        </div>
+      <div class="col-auto">
+        <label for="assignee" class="form-label">Filter by Assignee:</label>
+        <select name="assignee" id="assignee" class="form-select form-select-sm">
+          <option value="">All Workers</option>
+          {% for worker in workers %}
+            <option value="{{ worker.id }}" {% if worker.id|stringformat:"s" == selected_assignee_id %}selected{% endif %}>
+              {{ worker.first_name }} {{ worker.last_name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
 
-        <div class="col-auto">
-          <button type="submit" class="btn btn-sm btn-dark mt-3">Apply Filters</button>
-          <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
-        </div>
-      </form>
-    </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-sm btn-dark mt-3">Apply Filters</button>
+        <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary mt-3">Reset</a>
+      </div>
+    </form>
+  </div>
 
-    <!-- 🔘 Creation buttons -->
-    <div class="mb-4">
-      <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me2">← Main page</a>
-      <a href="{% url 'main:tasks:task-create' %}" class="btn btn-sm btn-outline-dark">
-        + Create new task
-      </a>
-    </div>
+  <!-- Кнопки навигации -->
+  <div class="mb-3">
+    <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">← Main page</a>
+    <a href="{% url 'main:tasks:task-create' %}" class="btn btn-sm btn-outline-dark">+ Create new task</a>
+  </div>
 
-    {% if tasks %}
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        {% for task in tasks %}
-          <div class="col">
-            <div class="card h-100 shadow-sm border border-dark">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
-                    {{ task.name }}
-                  </a>
-                </h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ task.status }}</h6>
-                <p class="card-text">
-                  {{ task.description|truncatewords:20 }}
-                </p>
-                <p class="card-text">
-                  <small class="text-muted">Project: {{ task.project.name }}</small>
-                </p>
-              </div>
-              <div class="card-footer d-flex justify-content-between">
-                <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-                <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-              </div>
+  {% if tasks %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      {% for task in tasks %}
+        <div class="col">
+          <div class="card h-100 shadow-sm border border-dark">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">
+                  {{ task.name }}
+                </a>
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ task.status }}</h6>
+              <p class="card-text">
+                {{ task.description|truncatewords:20 }}
+              </p>
+              <p class="card-text">
+                <small class="text-muted">Project: {{ task.project.name }}</small>
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+              <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
             </div>
           </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="alert alert-info" role="alert">
-        No tasks yet.
-      </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if is_paginated %}
+      <nav aria-label="Tasks pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if selected_project_id %}&project={{ selected_project_id }}{% endif %}{% if selected_assignee_id %}&assignee={{ selected_assignee_id }}{% endif %}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </span>
+            </li>
+          {% endif %}
+
+          {% for num in paginator.page_range %}
+            {% if page_obj.number == num %}
+              <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}{% if selected_project_id %}&project={{ selected_project_id }}{% endif %}{% if selected_assignee_id %}&assignee={{ selected_assignee_id }}{% endif %}">{{ num }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if selected_project_id %}&project={{ selected_project_id }}{% endif %}{% if selected_assignee_id %}&assignee={{ selected_assignee_id }}{% endif %}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </span>
+            </li>
+          {% endif %}
+
+        </ul>
+      </nav>
     {% endif %}
-  </div>
+  {% else %}
+    <div class="alert alert-info mt-3" role="alert">
+      No tasks available.
+    </div>
+  {% endif %}
+</div>
 {% endblock %}

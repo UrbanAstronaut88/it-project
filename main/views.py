@@ -14,7 +14,7 @@ from django.views.generic import (
     DeleteView,
     CreateView
 )
-from main.forms import ProjectForm, TaskForm, UserRegisterForm, LoginForm, SignUpForm
+from main.forms import ProjectForm, TaskForm, LoginForm, SignUpForm
 from main.models import Project, Task, TaskType, Worker
 
 
@@ -22,6 +22,19 @@ class ProjectListView(LoginRequiredMixin, ListView):
     model = Project
     template_name = "main/project_list.html"
     context_object_name = "projects"
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        paginator = context["paginator"]
+        page_obj = context["page_obj"]
+        projects = context["projects"]
+
+        if not projects and int(self.request.GET.get("page", 1)) > 1:
+            context["projects"] = paginator.page(paginator.num_pages)
+
+        return context
 
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
@@ -71,6 +84,7 @@ class WorkerListView(LoginRequiredMixin, ListView):
     model = User
     template_name = "main/worker_list.html"
     context_object_name = "workers"
+    paginate_by = 6
 
 
 class WorkerDetailView(LoginRequiredMixin, DetailView):
@@ -109,6 +123,7 @@ class TaskListView(LoginRequiredMixin, ListView):
     model = Task
     template_name = "main/task_list.html"
     context_object_name = "tasks"
+    paginate_by = 2
 
     def get_queryset(self):
         queryset = Task.objects.select_related("project").prefetch_related("assignees")

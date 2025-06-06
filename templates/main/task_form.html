@@ -8,9 +8,10 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
     flatpickr("#id_deadline", {
-      dateFormat: "d.m.Y",
+      dateFormat: "Y-m-d",
       altInput: true,
-      altFormat: "d.m.Y",
+      altFormat: "Y-m-d",
+      allowInput: true,  
     });
   </script>
 {% endblock %}
