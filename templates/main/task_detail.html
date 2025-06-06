@@ -6,33 +6,49 @@
 
 {% block content %}
   <div class="container mt-4">
-    <div class="card shadow-sm border border-dark">
+    <div class="card shadow border border-dark rounded-4">
       <div class="card-body">
-        <h3 class="card-title">{{ task.name }}</h3>
-        <h6 class="card-subtitle mb-3 text-muted">{{ task.status }}</h6>
-
-        <p><strong>Description:</strong> {{ task.description }}</p>
-        <p><strong>Deadline:</strong> {{ task.deadline }}</p>
-        <p><strong>Priority:</strong> <span class="badge bg-secondary">{{ task.priority }}</span></p>
-        <p><strong>Task Type:</strong> {{ task.task_type.name }}</p>
-        <p><strong>Project:</strong> {{ task.project.name }}</p>
-        <p><strong>Completed:</strong> {{ task.is_completed|yesno:"Yes,No" }}</p>
-        <p><strong>Assignees:</strong>
-          {% if task.assignees.all %}
-            <ul>
-              {% for user in task.assignees.all %}
-                <li>{{ user.get_full_name|default:user.username }}</li>
-              {% endfor %}
-            </ul>
+        <h3 class="card-title mb-2">{{ task.name }}</h3>
+        <h6 class="card-subtitle text-muted mb-3">
+          {% if task.is_completed %}
+            <span class="badge bg-success">Completed</span>
           {% else %}
-            <em>No assignees</em>
+            <span class="badge bg-warning text-dark">Pending</span>
           {% endif %}
-        </p>
+        </h6>
 
-        <div class="d-flex gap-2 mt-4">
-          <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-          <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
-          <a href="{% url 'main:tasks:task-list' %}" class="btn btn-sm btn-outline-secondary">Back to List</a>
+        {% if task.description %}
+          <p class="mb-3"><strong>Description:</strong> {{ task.description }}</p>
+        {% endif %}
+
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>Deadline:</strong> {{ task.deadline|date:"F d, Y" }}</li>
+          <li class="list-group-item"><strong>Priority:</strong> <span class="badge bg-secondary">{{ task.priority }}</span></li>
+          <li class="list-group-item"><strong>Type:</strong> {{ task.task_type.name }}</li>
+          <li class="list-group-item"><strong>Project:</strong> {{ task.project.name }}</li>
+        </ul>
+
+        <p class="mb-0"><strong>Assignees:</strong></p>
+        {% if task.assignees.all %}
+          <div class="mt-2 mb-3 d-flex flex-wrap gap-2">
+            {% for user in task.assignees.all %}
+              <span class="badge bg-dark">{{ user.get_full_name|default:user.username }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted fst-italic mb-3">No assignees</p>
+        {% endif %}
+
+        <div class="d-flex flex-wrap gap-2 mt-4">
+          <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-outline-primary btn-sm px-3">
+            Update
+          </a>
+          <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-outline-danger btn-sm px-3">
+            Delete
+          </a>
+          <a href="{% url 'main:tasks:task-list' %}" class="btn btn-outline-secondary btn-sm px-3">
+            Back to Task list
+          </a>
         </div>
       </div>
     </div>
