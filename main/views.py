@@ -85,7 +85,7 @@ class WorkerDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class WorkerCreateView(CreateView):
+class WorkerCreateView(LoginRequiredMixin, CreateView):
     model = User
     fields = ("username", "first_name", "last_name", "email", "position")
     template_name = "main/worker_form.html"
@@ -215,10 +215,10 @@ class MyTasksListView(LoginRequiredMixin, ListView):
         return Task.objects.filter(assignees=self.request.user)
 
 
-class RegisterView(CreateView):
-    form_class = UserRegisterForm
-    template_name = "registration/register.html"
-    success_url = reverse_lazy("login")
+# class RegisterView(CreateView):
+#     form_class = UserRegisterForm
+#     template_name = "registration/register.html"
+#     success_url = reverse_lazy("login")
 
 #LOGIN
 def login_view(request):
@@ -271,7 +271,6 @@ def register_user(request):
 #Logout
 def logout_view(request):
     if request.method == "POST":
-        print("LOGOUT works")            # не забыть убрать !!!!!!
         logout(request)
         return redirect("main:login")
     else:
