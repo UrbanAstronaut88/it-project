@@ -21,7 +21,7 @@ class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.username} ({self.get_full_name()})"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Task(models.Model):
