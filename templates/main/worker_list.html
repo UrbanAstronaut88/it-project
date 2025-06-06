@@ -7,12 +7,12 @@
 {% block content %}
   <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="mb-0">Workers</h2>
+      <h2 class="mb-0">Worker list</h2>
       <div>
         <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">
           ← Back to Main
         </a>
-        <a href="{% url 'main:workers:worker-create' %}" class="btn btn-sm btn-outline-dark">
+        <a href="{% url 'main:workers:worker-create' %}" class="btn btn-sm btn-outline-success">
           + Add new worker
         </a>
       </div>
@@ -33,7 +33,7 @@
               </div>
               <div class="card-footer d-flex justify-content-between">
                 <a href="{% url 'main:workers:worker-update' worker.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-                <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-dark">Delete</a>
               </div>
             </div>
           </div>

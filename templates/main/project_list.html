@@ -10,7 +10,7 @@
 
   <div class="mb-3">
     <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">← Main page</a>
-    <a href="{% url 'main:projects:project-create' %}" class="btn btn-sm btn-outline-dark">+ Create project</a>
+    <a href="{% url 'main:projects:project-create' %}" class="btn btn-sm btn-outline-success">+ Create project</a>
   </div>
 
   {% if projects %}
@@ -35,7 +35,7 @@
             </div>
             <div class="card-footer d-flex justify-content-between">
               <a href="{% url 'main:projects:project-update' project.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-              <a href="{% url 'main:projects:project-delete' project.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              <a href="{% url 'main:projects:project-delete' project.pk %}" class="btn btn-sm btn-outline-dark">Delete</a>
             </div>
           </div>
         </div>

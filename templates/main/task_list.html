@@ -1,14 +1,14 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}
-  Tasks
+  Task list
 {% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-  <h2 class="mb-4">Tasks</h2>
+  <h2 class="mb-4">Task list</h2>
 
-  <!-- Фильтры -->
+  <!-- Filters -->
   <div class="mb-3">
     <form method="get" class="row g-2 align-items-end">
       <div class="col-auto">
@@ -42,10 +42,10 @@
     </form>
   </div>
 
-  <!-- Кнопки навигации -->
+  <!-- Navigation buttons -->
   <div class="mb-3">
     <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">← Main page</a>
-    <a href="{% url 'main:tasks:task-create' %}" class="btn btn-sm btn-outline-dark">+ Create new task</a>
+    <a href="{% url 'main:tasks:task-create' %}" class="btn btn-sm btn-outline-success">+ Create new task</a>
   </div>
 
   {% if tasks %}
@@ -69,10 +69,10 @@
                 <p class="card-text">
                   <small class="text-muted">Task Type: {{ task.task_type.name }}</small>
                 </p>
-            </div>  
+            </div>
             <div class="card-footer d-flex justify-content-between">
               <a href="{% url 'main:tasks:task-update' task.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
-              <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+              <a href="{% url 'main:tasks:task-delete' task.pk %}" class="btn btn-sm btn-outline-dark">Delete</a>
             </div>
           </div>
         </div>
