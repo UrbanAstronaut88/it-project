@@ -1,0 +1,44 @@
+{% extends "layouts/base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block extra_css %}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#id_deadline", {
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "Y-m-d",
+      allowInput: true,
+    });
+  </script>
+{% endblock %}
+
+{% block title %}
+  {% if form.instance.pk %}
+    Update Project
+  {% else %}
+    Create Project
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">
+      {% if form.instance.pk %}
+        Update Project
+      {% else %}
+        Create Project
+      {% endif %}
+    </h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-sm btn-outline-primary">Create</button>
+      <a href="{% url 'main:projects:project-list' %}" class="btn btn-sm btn-outline-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}

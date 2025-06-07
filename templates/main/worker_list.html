@@ -1,0 +1,91 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+  Worker list
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="mb-0">Worker list</h2>
+      <div>
+        <a href="{% url 'main:home' %}" class="btn btn-sm btn-outline-secondary me-2">
+          ← Back to Main
+        </a>
+        <a href="{% url 'main:workers:worker-create' %}" class="btn btn-sm btn-outline-success">
+          + Add new worker
+        </a>
+      </div>
+    </div>
+
+    {% if workers %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for worker in workers %}
+          <div class="col">
+            <div class="card h-100 shadow-sm border border-dark rounded-3">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'main:workers:worker-detail' worker.pk %}" class="text-decoration-none text-dark">
+                    {{ worker.first_name }} {{ worker.last_name }}
+                  </a>
+                </h5>
+                <p class="card-text text-muted mb-1">{{ worker.position }}</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <a href="{% url 'main:workers:worker-update' worker.pk %}" class="btn btn-sm btn-outline-primary">Update</a>
+                <a href="{% url 'main:workers:worker-delete' worker.pk %}" class="btn btn-sm btn-outline-dark">Delete</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if is_paginated %}
+        <nav aria-label="Worker pagination" class="mt-4">
+          <ul class="pagination justify-content-center">
+
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </span>
+              </li>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <span class="page-link" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </span>
+              </li>
+            {% endif %}
+
+          </ul>
+        </nav>
+      {% endif %}
+
+    {% else %}
+      <div class="alert alert-info">There are no workers yet.</div>
+    {% endif %}
+  </div>
+{% endblock %}

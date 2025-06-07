@@ -1,0 +1,46 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+  My Tasks
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">My Tasks</h2>
+
+    {% if tasks %}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for task in tasks %}
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'main:tasks:task-detail' task.pk %}" class="text-decoration-none">{{ task.name }}</a>
+                </h5>
+                <p class="card-text">{{ task.description|truncatewords:20 }}</p>
+                <p class="card-text">
+                  <small class="text-muted">Project: {{ task.project.name }}</small><br>
+                  <small class="text-muted">Deadline: {{ task.deadline }}</small>
+                </p>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                {% if not task.is_completed %}
+                  <form action="{% url 'main:tasks:task-complete' task.pk %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-success">Mark as Completed</button>
+                  </form>
+                {% else %}
+                  <span class="badge bg-success">Completed</span>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        You have no assigned tasks.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
