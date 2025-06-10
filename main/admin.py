@@ -12,13 +12,14 @@ class PositionAdmin(admin.ModelAdmin):
 @admin.register(Worker)
 class WorkerAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        ("More info", {"fields": ("position",)}),
+        ("Additional info", {"fields": ("position",)}),
     )
-    add_fieldsets = UserAdmin.fieldsets + (
-        ("More info", {"fields": ("position",)}),
+    add_fieldsets = UserAdmin.add_fieldsets + (
+        ("Additional info", {"fields": ("first_name", "last_name", "position",)}),
     )
     list_display = (
         "username",
+        "email",
         "first_name",
         "last_name",
         "is_staff",
